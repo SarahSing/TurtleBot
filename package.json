@@ -1,0 +1,13 @@
+{
+  "name": "TurtleBot",
+  "version": "1.0.0",
+  "description": "My own Discord bot",
+  "main": "bot.js",
+  "scripts" {
+    "start": "node bot.js"
+  "author": "Sarah Singletary",
+  "dependencies": {
+    "discord.js": "11.1.0",
+    "request": "2.82.0"
+  }
+}
