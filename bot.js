@@ -1,14 +1,31 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const client = new Discord.Client();
+const config = require("./config.json");
+const fs = require("fs")
 
-client.on("ready", () => {
-  console.log("I am ready!");
+client.on('ready', () => {
+    console.log('Hey Am i Human? can i be?');
+
 });
+client.on('message', message => {
+    if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
-client.on("message", (message) => {
-  if (message.content.startsWith("ping")) {
-    message.channel.send("pong!");
+  if(message.content.startsWith(config.prefix + "ping")) {
+          message.channel.send({embed: {
+            color: 2752220,
+            description: ("pong!")
+          }})
   }
+      if(message.author.id !== config.ownerID) return;
+      if(message.content.startsWith(config.prefix + "prefix")) {
+      // Gets the prefix from the command (eg. "!prefix +" it will take the "+" from it)
+     let newPrefix = message.content.split(" ").slice(1, 2)[0];
+     // change the configuration in memory
+    config.prefix = newPrefix;
+
+    // Now we have to save the file.
+    fs.writeFile("./config.json", JSON.stringify(config), (err) => console.error);
+  };
 });
 
-client.login(process.env.VzFUpra0ncmnuO5poS32urjXL6fL16ey);
+client.login(config.token);
